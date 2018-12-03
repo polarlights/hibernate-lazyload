@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 @Data
 @ToString(exclude = {"postDetail", "postComments"})
@@ -34,7 +36,9 @@ public class Post implements Serializable {
         return id;
     }
 
-    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    //    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @LazyToOne(LazyToOneOption.NO_PROXY)
     public PostDetail getPostDetail() {
         return postDetail;
     }
