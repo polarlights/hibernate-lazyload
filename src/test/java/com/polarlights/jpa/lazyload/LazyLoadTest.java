@@ -2,7 +2,6 @@ package com.polarlights.jpa.lazyload;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.polarlights.jpa.lazyload.domain.Award;
 import com.polarlights.jpa.lazyload.domain.Bird;
@@ -17,6 +16,7 @@ import com.polarlights.jpa.lazyload.repositories.CageRepository;
 import com.polarlights.jpa.lazyload.repositories.NoteRepository;
 import com.polarlights.jpa.lazyload.repositories.SpecieRepository;
 import com.polarlights.jpa.lazyload.repositories.TreatmentRepository;
+import com.polarlights.jpa.lazyload.service.BirdService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,6 +45,9 @@ public class LazyLoadTest {
     private SpecieRepository specieRepository;
     @Autowired
     private NoteRepository noteRepository;
+
+    @Autowired
+    private BirdService birdService;
 
     @BeforeEach
     @Transactional
@@ -88,7 +91,6 @@ public class LazyLoadTest {
 
     @Test
     void findBird() {
-        final Optional<Bird> bird = birdRepository.findById(1L);
-        bird.get();
+        birdService.testBird();
     }
 }

@@ -25,6 +25,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.LazyGroup;
 
 @Getter
 @Setter
@@ -50,6 +51,7 @@ public class Bird implements Serializable {
         return id;
     }
 
+    @LazyGroup("picture")
     @Lob
     @Basic(fetch = FetchType.LAZY)
     public byte[] getPicture() {
@@ -63,14 +65,14 @@ public class Bird implements Serializable {
     }
 
     // undirectional
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "specie_id")
     public Specie getSpecie() {
         return specie;
     }
 
     // bidirectional
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cage_id")
     public Cage getCage() {
         return cage;
@@ -91,7 +93,7 @@ public class Bird implements Serializable {
         return treatments;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "breeder_id")
     public Breeder getBreeder() {
         return breeder;
