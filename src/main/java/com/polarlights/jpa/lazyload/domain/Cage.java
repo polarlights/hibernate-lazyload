@@ -1,7 +1,6 @@
 package com.polarlights.jpa.lazyload.domain;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,6 +13,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 @Getter
 @Setter
@@ -34,7 +35,8 @@ public class Cage implements Serializable {
    }
 
    // bidirectional
-   @OneToOne(mappedBy = "cage", fetch = FetchType.LAZY)
+   @OneToOne(fetch = FetchType.LAZY, optional = true)
+   @LazyToOne(LazyToOneOption.NO_PROXY)
    public Bird getBird() {
       return bird;
    }

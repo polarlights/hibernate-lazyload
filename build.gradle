@@ -2,6 +2,8 @@ buildscript {
 	ext {
 		springBootVersion = '2.0.7.RELEASE'
 		junitVersion = '5.2.0'
+		hibernateVersion = '5.2.17.Final'
+		lombokVersion = '1.16.22'
 	}
 	repositories {
 		mavenCentral()
@@ -12,6 +14,7 @@ buildscript {
 	dependencies {
 		classpath("net.ltgt.gradle:gradle-apt-plugin:0.15")
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("org.hibernate:hibernate-gradle-plugin:${hibernateVersion}")
 	}
 }
 
@@ -20,6 +23,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'net.ltgt.apt'
+apply plugin: 'org.hibernate.orm'
 
 group = 'com.polarlights.jpa'
 version = '0.0.1-SNAPSHOT'
@@ -33,11 +37,20 @@ configurations.all {
 	exclude group: "junit", module: "junit"
 }
 
+hibernate {
+	enhance {
+		enableLazyInitialization = true
+		enableDirtyTracking = true
+		enableAssociationManagement = true
+		enableExtendedEnhancement = false
+	}
+}
+
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	runtimeOnly('com.h2database:h2')
-	compileOnly('org.projectlombok:lombok')
-	apt('org.projectlombok:lombok')
+	compileOnly("org.projectlombok:lombok:${lombokVersion}")
+	apt("org.projectlombok:lombok:${lombokVersion}")
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
 	testCompile("org.junit.jupiter:junit-jupiter-params:${junitVersion}")
