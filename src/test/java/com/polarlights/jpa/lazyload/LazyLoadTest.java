@@ -17,7 +17,6 @@ import com.polarlights.jpa.lazyload.repositories.NoteRepository;
 import com.polarlights.jpa.lazyload.repositories.SpecieRepository;
 import com.polarlights.jpa.lazyload.repositories.TreatmentRepository;
 import com.polarlights.jpa.lazyload.service.BirdService;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +25,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-@Slf4j
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 public class LazyLoadTest {
@@ -68,7 +66,7 @@ public class LazyLoadTest {
 
         final Cage cage = new Cage();
         cage.setName("Cage One");
-//        cageRepository.save(cage);
+        cageRepository.save(cage);
 
         final Specie specie = new Specie();
         specie.setName("Flying birds");
@@ -92,6 +90,11 @@ public class LazyLoadTest {
     @Test
     void findBird() {
         birdService.findBird();
+    }
+
+    @Test
+    void findCage() {
+      birdService.findCage();
     }
 
     @Test

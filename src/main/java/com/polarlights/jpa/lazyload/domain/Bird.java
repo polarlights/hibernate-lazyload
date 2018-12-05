@@ -72,7 +72,7 @@ public class Bird implements Serializable {
     }
 
     // bidirectional
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cage_id")
     public Cage getCage() {
         return cage;
@@ -93,7 +93,7 @@ public class Bird implements Serializable {
         return treatments;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "breeder_id")
     public Breeder getBreeder() {
         return breeder;

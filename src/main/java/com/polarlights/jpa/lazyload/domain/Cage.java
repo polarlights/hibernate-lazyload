@@ -3,6 +3,7 @@ package com.polarlights.jpa.lazyload.domain;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,7 +34,7 @@ public class Cage implements Serializable {
    }
 
    // bidirectional
-   @OneToOne(mappedBy = "cage")
+   @OneToOne(mappedBy = "cage", fetch = FetchType.LAZY)
    public Bird getBird() {
       return bird;
    }

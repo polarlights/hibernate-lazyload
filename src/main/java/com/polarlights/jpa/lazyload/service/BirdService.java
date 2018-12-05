@@ -1,7 +1,9 @@
 package com.polarlights.jpa.lazyload.service;
 
 import com.polarlights.jpa.lazyload.domain.Bird;
+import com.polarlights.jpa.lazyload.domain.Cage;
 import com.polarlights.jpa.lazyload.repositories.BirdRepository;
+import com.polarlights.jpa.lazyload.repositories.CageRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class BirdService {
    @Autowired
     private BirdRepository birdRepository;
+   @Autowired
+   private CageRepository cageRepository;
 
    @Transactional(readOnly = true, rollbackFor = Exception.class)
    public void findBird() {
@@ -29,6 +33,14 @@ public class BirdService {
         bird.getNotes().size();
         log.info("---------> bidirectional ManyToOne breeder");
         bird.getBreeder().getName();
+   }
+
+   @Transactional(readOnly = true, rollbackFor = Exception.class)
+   public void findCage() {
+       log.info("---------> Cage");
+       Cage cage = cageRepository.findById(1L).get();
+       log.info("---------> load bird");
+       cage.getBird().getBand();
    }
 
    @Transactional(rollbackFor = Exception.class)
