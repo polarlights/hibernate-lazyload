@@ -14,7 +14,7 @@ public class BirdService {
     private BirdRepository birdRepository;
 
    @Transactional(readOnly = true, rollbackFor = Exception.class)
-   public void testBird() {
+   public void findBird() {
         log.info("---------> Bird");
         Bird bird = birdRepository.findById(1L).get();
         log.info("---------> Lazy Lob Property picture");
@@ -29,5 +29,14 @@ public class BirdService {
         bird.getNotes().size();
         log.info("---------> bidirectional ManyToOne breeder");
         bird.getBreeder().getName();
+   }
+
+   @Transactional(rollbackFor = Exception.class)
+    public void updateBird() {
+       log.info("---------> Bird");
+       Bird bird = birdRepository.findById(1L).get();
+       bird.setBand("Another band");
+       log.info("---------> Bird save");
+       birdRepository.save(bird);
    }
 }

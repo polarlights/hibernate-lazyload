@@ -68,7 +68,7 @@ public class LazyLoadTest {
 
         final Cage cage = new Cage();
         cage.setName("Cage One");
-        cageRepository.save(cage);
+//        cageRepository.save(cage);
 
         final Specie specie = new Specie();
         specie.setName("Flying birds");
@@ -91,6 +91,11 @@ public class LazyLoadTest {
 
     @Test
     void findBird() {
-        birdService.testBird();
+        birdService.findBird();
+    }
+
+    @Test
+    void updateBird() {
+        birdService.updateBird();
     }
 }
